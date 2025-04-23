@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Tameshwer Nath - CREATE Lab</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/inter-ui@3.19.3/inter.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f4c81;
+            --secondary-color: #3498db;
+            --accent-color: #f39c12;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f5f7fa;
+            --bg-dark: #1a202c;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+        }
+        
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .lab-name {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .lab-name-expanded {
+            font-weight: bold;
+        }
+        
+        .lab-name-expanded span {
+            color: var(--primary-color);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .profile-image {
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .publication-card, .project-card {
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .publication-card:hover, .project-card:hover {
+            border-left-color: var(--accent-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .student-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50% !important;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .student-photo:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        table tr {
+            transition: background-color 0.3s ease;
+        }
+        
+        table tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .achievement-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-item::before {
+            content: '\f559';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .achievement-item:hover::before {
+            transform: scale(1.2);
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: black;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: var(--primary-color);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .dropdown:hover .dropbtn {
+            color: var(--primary-color);
+        }
+        
+        .video-gallery {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .gallery-container {
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            margin-bottom: 1rem;
+        }
+        
+        .gallery-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        
+        .gallery-navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .gallery-thumbnail {
+            width: 80px;
+            height: 45px;
+            margin: 0 5px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gallery-thumbnail.active {
+            opacity: 1;
+            border-color: var(--primary-color);
+        }
+        
+        .gallery-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        
+        .gallery-control {
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .video-gallery:hover .gallery-control {
+            opacity: 1;
+        }
+        
+        .gallery-control:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        #home, #about, #research, #patents, #achievements, #contact {
+            display: none;
+        }
+        
+        #home.active, #about.active, #research.active, #patents.active, #achievements.active, #contact.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 15% auto;
+            }
+            
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                display: none;
+            }
+            
+            .mobile-dropdown-active .dropdown-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header with Navigation -->
+    <header class="sticky-nav shadow-md">
+        <div class="section-container flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="mr-4">
+                    <img src="images/logo.png" alt="IIIT Bhagalpur Logo" class="rounded-full w-16 h-16" id="institute-logo">
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">Dr. Tameshwer Nath</h1>
+                    <p class="text-gray-600">Assistant Professor, Mechatronics and Automation Engineering</p>
+                </div>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="#" class="nav-link hover:text-blue-600 transition-colors" data-page="home">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link hover:text-blue-600 transition-colors dropbtn">About</a>
+                        <div class="dropdown-content">
+                            <a href="#" data-page="about" data-section="about-me">About Me</a>
+                            <a href="#" data-page="about" data-section="education">Education</a>
+                            <a href="#" data-page="about" data-section="experience">Experience</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link hover:text-blue-600 transition-colors dropbtn">Research</a>
+                        <div class="dropdown-content">
+                            <a href="#" data-page="research" data-section="research-interests">Research Interests</a>
+                            <a href="#" data-page="research" data-section="publications">Publications</a>
+                            <a href="#" data-page="research" data-section="projects">Projects</a>
+                            <a href="#" data-page="research" data-section="researchers">Researchers</a>
+                        </div>
+                    </li>
+                    <li><a href="#" class="nav-link hover:text-blue-600 transition-colors" data-page="patents">Patents</a></li>
+                    <li><a href="#" class="nav-link hover:text-blue-600 transition-colors" data-page="achievements">Achievements</a></li>
+                    <li><a href="#" class="nav-link hover:text-blue-600 transition-colors" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 shadow-inner">
+            <div class="section-container">
+                <ul class="space-y-2">
+                    <li><a href="#" class="block hover:text-blue-600 transition-colors" data-page="home">Home</a></li>
+                    <li class="mobile-dropdown">
+                        <div class="flex items-center justify-between">
+                            <a href="#" class="block hover:text-blue-600 transition-colors">About</a>
+                            <i class="fas fa-chevron-down mobile-dropdown-toggle"></i>
+                        </div>
+                        <div class="dropdown-content pl-4 pt-2">
+                            <a href="#" data-page="about" data-section="about-me">About Me</a>
+                            <a href="#" data-page="about" data-section="education">Education</a>
+                            <a href="#" data-page="about" data-section="experience">Experience</a>
+                        </div>
+                    </li>
+                    <li class="mobile-dropdown">
+                        <div class="flex items-center justify-between">
+                            <a href="#" class="block hover:text-blue-600 transition-colors">Research</a>
+                            <i class="fas fa-chevron-down mobile-dropdown-toggle"></i>
+                        </div>
+                        <div class="dropdown-content pl-4 pt-2">
+                            <a href="#" data-page="research" data-section="research-interests">Research Interests</a>
+                            <a href="#" data-page="research" data-section="publications">Publications</a>
+                            <a href="#" data-page="research" data-section="projects">Projects</a>
+                            <a href="#" data-page="research" data-section="researchers">Researchers</a>
+                        </div>
+                    </li>
+                    <li><a href="#" class="block hover:text-blue-600 transition-colors" data-page="patents">Patents</a></li>
+                    <li><a href="#" class="block hover:text-blue-600 transition-colors" data-page="achievements">Achievements</a></li>
+                    <li><a href="#" class="block hover:text-blue-600 transition-colors" data-page="contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page Section -->
+    <section id="home" class="active">
+        <!-- Hero Section with Lab Name -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 py-16">
+            <div class="section-container">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <h2 class="text-4xl md:text-5xl font-bold lab-name mb-4">CREATE</h2>
+                        <p class="text-lg text-gray-700 mb-2 lab-name-expanded">
+                            <span>C</span>enter for <span>R</span>esearch in <span>E</span>merging <span>A</span>ctuation & <span>T</span>esting in <span>E</span>ngineering
+                        </p>
+                        <!--<p class="text-gray-700 mb-6">Advancing research in smart materials and actuation technologies for next-generation engineering solutions</p>-->
+                        <div class="flex items-center space-x-4">
+                            <button id="vision-button" class="btn bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors">Vision</button>
+                            <button id="virtual-tour-button" class="btn border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium px-6 py-3 rounded-lg transition-colors">Virtual Tour</button>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <img src="images/tameshwerSir.jpg" alt="Dr. Tameshwer Nath " class="profile-image" id="profile-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lab Overview -->
+        <div class="section-container py-12">
+            <h2 class="text-3xl font-bold section-title">Lab Overview</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                <div class="card p-6">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-microscope text-5xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-2">Smart Materials Research</h3>
+                    <p class="text-gray-700">Investigating Shape Memory Alloys (SMA) and their applications in actuation systems, focusing on their thermo-mechanical behavior and lifecycle reliability.</p>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-robot text-5xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-2">Mechatronics Systems</h3>
+                    <p class="text-gray-700">Developing intelligent control strategies for mechanical systems with integrated electronics, sensors, and actuators for precision applications.</p>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-cogs text-5xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-2">Testing & Engineering</h3>
+                    <p class="text-gray-700">Building innovative test benches and methodologies to evaluate and enhance the performance of emerging actuation technologies.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold mb-4">Research Focus Areas</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h4 class="text-lg font-medium text-blue-700 mb-2">Shape Memory Alloy Technologies</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Actuation and control studies of laser-processed SMA springs</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Thermo-mechanical behavior under different control strategies</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Life cycle behavior and reliability assessment</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h4 class="text-lg font-medium text-blue-700 mb-2">Mechatronics & Automation</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Precision position control of actuation systems</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Design of microrobots for practical applications</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Integration of AI in powertrain systems for electric vehicles</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="btn bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg transition-colors inline-block" data-page="research" data-section="research-interests">Explore Our Research</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-8">
+        <div class="section-container">
+            <!-- About Me Subsection -->
+            <div id="about-me">
+                <h2 class="text-3xl font-bold section-title">About Me</h2>
+                <div class="card p-6">
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-2/3">
+                            <p class="text-lg mb-4">
+                                I am Dr. Tameshwer Nath, an Assistant Professor at the Department of Mechatronics and Automation Engineering, Indian Institute of Information Technology Bhagalpur. I completed my Ph.D. from Indian Institute of Technology, Indore in February 2019, focusing on "Investigations on Contact and Non-Contact Based Actuation Studies of Shape Memory Alloy (SMA) Structures and their Life Cycle Behavior."
+                            </p>
+                            <p class="text-lg mb-4">
+                                My research interests lie in the design and control of Mechanical Systems, Smart Materials (particularly Shape Memory Alloys), Mechatronics, and Additive Manufacturing. I have published numerous research papers in reputed journals and conferences, and have been actively involved in funded research projects.
+                            </p>
+                            <p class="text-lg">
+                                At IIIT Bhagalpur, I serve as Faculty In-charge for Security and Transport, and as a Warden for Kautilya Hostel. I am committed to advancing research in my field and guiding students to achieve excellence in their academic and research pursuits.
+                            </p>
+                        </div>
+                        <div class="md:w-1/3">
+                            <div class="card p-4 bg-blue-50">
+                                <h3 class="text-xl font-semibold text-blue-700 mb-3">Contact Information</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-envelope text-blue-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <p>tameshwer.nath@gmail.com</p>
+                                            <p>tnath.mea@iiitbh.ac.in</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-phone text-blue-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <p>+91-8959591837 (WhatsApp)</p>
+                                            <p>+91-9528993366</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-globe text-blue-600 mt-1 mr-3"></i>
+                                        <p><a href="http://www.tntiwari.webs.com" target="_blank" class="text-blue-600 hover:underline">www.tntiwari.webs.com</a></p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fab fa-orcid text-blue-600 mt-1 mr-3"></i>
+                                        <p>ORCID: 0000-0002-1471-9900</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Subsection -->
+            <div id="education" class="mt-12">
+                <h2 class="text-3xl font-bold section-title">Education</h2>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Qualification</th>
+                                <th>Institution</th>
+                                <th>Year of Passing</th>
+                                <th>Division</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ph.D. (Mechanical Engineering)</td>
+                                <td>Indian Institute of Technology, Indore<br><a href="http://www.iiti.ac.in" target="_blank" class="text-blue-600 hover:underline">www.iiti.ac.in</a></td>
+                                <td>February 2019</td>
+                                <td>First Division</td>
+                            </tr>
+                            <tr>
+                                <td>Master of Technology (Manufacturing Systems Engineering)</td>
+                                <td>SLIET, Deemed University, Central Government, Sangrur, Punjab<br><a href="http://www.sliet.ac.in" target="_blank" class="text-blue-600 hover:underline">www.sliet.ac.in</a></td>
+                                <td>July 2012</td>
+                                <td>First Division</td>
+                            </tr>
+                            <tr>
+                                <td>Bachelor of Technology (Mechanical Engineering)</td>
+                                <td>Institute of Technology and Management, Gorakhpur<br><a href="http://www.itmgida.edu.in" target="_blank" class="text-blue-600 hover:underline">www.itmgida.edu.in</a></td>
+                                <td>July 2008</td>
+                                <td>First Division</td>
+                            </tr>
+                            <tr>
+                                <td>Diploma in Mechanical Engineering (Computer Aided Design)</td>
+                                <td>Maharana Pratap Polytechnic, Gorakhpur<br><a href="http://www.mppolytechnic.net" target="_blank" class="text-blue-600 hover:underline">www.mppolytechnic.net</a></td>
+                                <td>August 2005</td>
+                                <td>First Division</td>
+                            </tr>
+                            <tr>
+                                <td>Intermediate</td>
+                                <td>F.C.I. Inter College, Gorakhpur</td>
+                                <td>August 2001</td>
+                                <td>First Division</td>
+                            </tr>
+                            <tr>
+                                <td>High School</td>
+                                <td>F.C.I. Inter College, Gorakhpur</td>
+                                <td>August 1999</td>
+                                <td>First Division</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 class="text-2xl font-bold mt-8 mb-4">Research and Development</h3>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Degree</th>
+                                <th>Stream</th>
+                                <th>Dissertation Title</th>
+                                <th>Supervisor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Doctor of Philosophy</td>
+                                <td>Mechanical Engineering</td>
+                                <td>Investigations on Contact and Non-Contact Based Actuation Studies of Shape Memory Alloy (SMA) Structures and their Life Cycle Behavior</td>
+                                <td>Dr. I.A. Palani (Professor and Dean R & D), Indian Institute of Technology Indore</td>
+                            </tr>
+                            <tr>
+                                <td>Master of Technology</td>
+                                <td>Manufacturing Systems Engineering</td>
+                                <td>Dynamic behavior and control of Quarter/Half/Full Car Models with Active And Passive Suspension system</td>
+                                <td>Late Dr. Vikas Rastogi (Professor), Delhi Technological University, Delhi</td>
+                            </tr>
+                            <tr>
+                                <td>Bachelor of Technology</td>
+                                <td>Mechanical Engineering</td>
+                                <td>Design of Powered Jack</td>
+                                <td>Dr. Virendra Mishra (Associate Professor), Galgotia Engineering College, Noida</td>
+                            </tr>
+                            <tr>
+                                <td>Polytechnic</td>
+                                <td>Mechanical Engineering-Computer Aided Design</td>
+                                <td>Design and Fabrication of Winnowing Fan</td>
+                                <td>Mr. Rajendra Tiwari (Lecturer)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Experience Subsection -->
+            <div id="experience" class="mt-12">
+                <h2 class="text-3xl font-bold section-title">Professional Experience</h2>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Department and Institute</th>
+                                <th>Period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Assistant Professor (AGP: 7000, Level 11)</td>
+                                <td>Department of Mechatronics and Automation Engineering, Indian Institute of Information Technology Bhagalpur, Bihar</td>
+                                <td>19th June 2023 to Till Date</td>
+                            </tr>
+                            <tr>
+                                <td>Assistant Professor (AGP: 6000, Level 10)</td>
+                                <td>Department of Mechatronics and Automation Engineering, Indian Institute of Information Technology Bhagalpur, Bihar</td>
+                                <td>18th September 2020 - 18th June 2023</td>
+                            </tr>
+                            <tr>
+                                <td>Assistant Professor</td>
+                                <td>Department of Mechanical Engineering, Subharti University, Meerut, UP</td>
+                                <td>1st January 2019 to 01st July 2019</td>
+                            </tr>
+                            <tr>
+                                <td>Research Associate</td>
+                                <td>Funded by CSIR, working in IIT Indore</td>
+                                <td>1st May 2018 to 10th October 2018</td>
+                            </tr>
+                            <tr>
+                                <td>Teaching Associate</td>
+                                <td>Department of Mechanical Engineering, IIT Indore, MP</td>
+                                <td>1st Jan. 2014 to 30th April 2018</td>
+                            </tr>
+                            <tr>
+                                <td>Assistant Professor</td>
+                                <td>Department of Mechanical Engineering, Subharti University Meerut, UP</td>
+                                <td>1st September 2012 to 31st Dec. 2013</td>
+                            </tr>
+                            <tr>
+                                <td>Lecturer</td>
+                                <td>Department of Mechanical Engineering, Subharti University Meerut, UP</td>
+                                <td>4th Aug. 2008 to 30th Aug. 2010</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-2xl font-bold mt-8 mb-4">Administrative Responsibilities</h3>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Department and Institute</th>
+                                <th>Period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>F/I Security</td>
+                                <td>IIIT Bhagalpur</td>
+                                <td>19 July 2022 - Till Now</td>
+                            </tr>
+                            <tr>
+                                <td>F/I Transport</td>
+                                <td>IIIT Bhagalpur</td>
+                                <td>19 July 2022 - Till Now</td>
+                            </tr>
+                            <tr>
+                                <td>Warden</td>
+                                <td>Hostels 2, 4, 6, 10, 11</td>
+                                <td>1 November 2022 - December 2023</td>
+                            </tr>
+                            <tr>
+                                <td>Warden</td>
+                                <td>Kautilya Hostel</td>
+                                <td>January 2023 - Till Now</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-2xl font-bold mt-8 mb-4">Membership</h3>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Society</th>
+                                <th>Validity</th>
+                                <th>Membership No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ISSS (Institute of Smart Structures and Systems)</td>
+                                <td>From 08 October 2024 to Life Time</td>
+                                <td>LM-832</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-2xl font-bold mt-8 mb-4">Training</h3>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Unit</th>
+                                <th>Period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Training</td>
+                                <td>Central Workshop, Indian Railway, Gorakhpur</td>
+                                <td>Jun. 2006 - Jul. 2006</td>
+                            </tr>
+                            <tr>
+                                <td>Training</td>
+                                <td>CFEES, Defence Research and Development Organisation, Delhi</td>
+                                <td>Jun. 2007 - Jul. 2007</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-8">
+        <div class="section-container">
+            <!-- Research Interests Subsection -->
+            <div id="research-interests">
+                <h2 class="text-3xl font-bold section-title">Research Interests</h2>
+                <div class="card p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-microscope text-blue-600 mt-1 mr-3 text-xl"></i>
+                                    <p class="text-lg">Design and control of Mechanical Systems</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-atom text-blue-600 mt-1 mr-3 text-xl"></i>
+                                    <p class="text-lg">Smart Materials (Shape Memory Alloy, especially NiTi)</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-robot text-blue-600 mt-1 mr-3 text-xl"></i>
+                                    <p class="text-lg">Mechatronics</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-print text-blue-600 mt-1 mr-3 text-xl"></i>
+                                    <p class="text-lg">Additive Manufacturing</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-700 mb-3">Technical Skills</h3>
+                            <p class="mb-4"><strong>Equipment:</strong> SEM, TGA, XRD, EDAX etc.</p>
+                            
+                            <h3 class="text-xl font-semibold text-blue-700 mb-3">Analysis And Control Software</h3>
+                            <p>Symbol's'shakti (Bond Graph), Ansys, Comsol, Matlab (Simulink), Auto-CAD, Origin-Pro</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications Subsection -->
+            <div id="publications" class="mt-12">
+                <h2 class="text-3xl font-bold section-title">Publications</h2>
+                
+                <div class="card p-6 mb-8">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4">Publication Summary</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg text-center hover:bg-blue-100 transition-colors">
+                            <span class="text-3xl font-bold text-blue-700">12</span>
+                            <p class="text-gray-700">SCI Indexed Journals</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center hover:bg-blue-100 transition-colors">
+                            <span class="text-3xl font-bold text-blue-700">3</span>
+                            <p class="text-gray-700">Scopus Indexed Journals</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center hover:bg-blue-100 transition-colors">
+                            <span class="text-3xl font-bold text-blue-700">5</span>
+                            <p class="text-gray-700">Book Chapters</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center hover:bg-blue-100 transition-colors">
+                            <span class="text-3xl font-bold text-blue-700">9</span>
+                            <p class="text-gray-700">Conference Papers</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Navigation for Publications -->
+                <div class="flex flex-wrap mb-4">
+                    <button class="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-tl-lg rounded-bl-lg publication-tab active" data-pub-tab="sci">SCI Journals</button>
+                    <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 publication-tab" data-pub-tab="scopus">Scopus Journals</button>
+                    <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 publication-tab" data-pub-tab="books">Book Chapters</button>
+                    <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 publication-tab" data-pub-tab="conferences">Conferences</button>
+                </div>
+                
+                <!-- SCI Journals -->
+                <div id="sci-tab" class="publication-content active">
+                    <div class="space-y-4">
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">1.</span> Singh, A., Bedi, R., Nath, T. et al. (2024). Feasibility of manufacturing high-aspect-ratio hollow tubes of SS410 through wire-arc directed energy deposition. <em>Int J Adv Manuf Technol</em>. <a href="https://doi.org/10.1007/s00170-024-14334-9" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1007/s00170-024-14334-9</a>
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">2.</span> Kumar S, Triveni MK, Katiyar JK, Tiwari TN, Roy BS (2022). Prediction of heat generation effect on force torque and mechanical properties at varying tool rotational speed in friction stir welding using Artificial Neural Network. <em>Journal of Mechanical Engineering Science</em>. 237(19):4495-4514. <a href="http://doi.org/10.1177/09544062231155737" target="_blank" class="text-blue-600 hover:underline">http://doi.org/10.1177/09544062231155737</a>
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">3.</span> Amrit Bir Singh, Tameshwer Nath, S.G.Dommeti, Shiva Sekhar, (2022). Bulk Fabrication of SS410 Material using cold metal transfer-based wire arc additive manufacturing process at optimized parameters: Microstructural and Property Evaluation. <em>MDPI, Machines</em>, 10, pp: 1-32, 1136. <a href="http://doi.org/10.3390/machines10121136" target="_blank" class="text-blue-600 hover:underline">http://doi.org/10.3390/machines10121136</a>
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">4.</span> Prashant Tripathi, Tameshwer Nath, (2022). An Experimental Investigation into Effect of Reinforcement Material on Mechanical Properties of Linear Low-Density Polyethylene. <em>Defence Science Journal</em>, 72 (3). <a href="http://doi.org/10.14429/dsj.72.17703" target="_blank" class="text-blue-600 hover:underline">http://doi.org/10.14429/dsj.72.17703</a>, IF: 0.85
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">5.</span> Bunty Tomar, S.Shiva, Tameshwer Nath, (2022). A Review on wire arc additive manufacturing: Processing, parameter, quality improvement and recent advances. <em>Materials Today Communications (Elsevier)</em>, 31, pp:1-24. <a href="http://doi.org/10.1016/j.mtcomm.2022.103739" target="_blank" class="text-blue-600 hover:underline">http://doi.org/10.1016/j.mtcomm.2022.103739</a>, IF: 3.383
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow sci-publication">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">6.</span> Nath T, Mani Prabu SS, Palani IA, (2019). Actuation and control studies on laser processed single way trained shape memory alloy springs. <em>Optics & Laser Technology (Elsevier)</em>, 112, pp:459-472. <a href="https://doi.org/10.1016/j.optlastec.2018.11.048" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1016/j.optlastec.2018.11.048</a>, IF: 3.319
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button id="view-more-sci" class="text-blue-600 hover:text-blue-800 font-medium">View More Publications</button>
+                    </div>
+                </div>
+                
+                <!-- Scopus Journals -->
+                <div id="scopus-tab" class="publication-content hidden">
+                    <div class="space-y-4">
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">1.</span> Tameshwer Nath, Suraj, Arun Kumar, "The Synergy of NiTi Shape Memory Alloys and Additive Manufacturing: Applications and Future Directions" <em>Journal of Micro manufacturing</em>, 2025, Accepted.
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">2.</span> Praveen Kumar Pandey, Abhinav Gautam, Tameshwer Nath (2024). Elucidations on different modes of charging techniques for enhancement of the performance of Electric vehicle. <em>Int. J. of Electric and Hybrid Vehicles, (Inderscience)</em>, Vol No: 16 (1), pp 64-101. <a href="https://doi.org/10.1504/IJEHV.2024.137510" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1504/IJEHV.2024.137510</a>
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">3.</span> Vineet Kumar Singh, Tameshwer Nath, (2021). Energy Generation by small hydro power plant under different operating conditions. <em>Int. J. of Hydro-mechatronics (Inderscience)</em>, Vol. 4 (4), pp: 331-349, ISSN No: 2515-0464. <a href="http://doi.org/10.1504/IJHM.2021.10043474" target="_blank" class="text-blue-600 hover:underline">http://doi.org/10.1504/IJHM.2021.10043474</a>
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">4.</span> Tameshwer Nath, Abhilash Kasliwal, Raghunandan singh, Kartik Kulkarni, Gaurav Raut, Alok Kumar, Ritesh Khatri, Sahil Mittal, I.A. Palani, (2015). Investigation on the Laser Based Actuation of Single way Trained SMA sheet and Their Application for the Development of Micro Positioning Stage. <em>Applied Mechanics and Materials</em>, 766-767, pp 427-431. <a href="http://doi.org/10.4028/www.scientific.net/AMM.766-767.427" target="_blank" class="text-blue-600 hover:underline">http://doi.org/10.4028/www.scientific.net/AMM.766-767.427</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Chapters -->
+                <div id="books-tab" class="publication-content hidden">
+                    <div class="space-y-4">
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">1.</span> Bharat Kumar Aryan, Tameshwer Nath, Babul P Tewari (2023). A Comparative Analysis of Bitcoin Price Prediction using Deep Learning and Machine Learning Algorithms. Book: <em>Healthcare Services in Metaverse: Game Theory, AI, IoT and Blockchain</em>, Publisher: Taylor and Francis, Accepted
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">2.</span> Suraj, Tameshwer Nath, Arun Kumar, (2023). Sustainable Design Innovation & Analysis of Customized Solar Frame Bicycle. <em>Robotics and Automation in Industry 4.0</em>: Publisher: Bentham Science, Reference No: 04/07/2022-Ebk-1//CDMSE-PROP-283, Accepted
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">3.</span> Mithun, R., Nath, T., Mani Prabu, S.S., Palani, I.A. (2020). Influence of Flow Domain Parameters on Hot Water Actuation of Shape-Memory Alloy Spring for Barrier Gate System. In: Shunmugam, M., Kanthababu, M. (eds) <em>Advances in Simulation, Product Design and Development. Lecture Notes on Multidisciplinary Industrial Engineering</em>. Springer, Singapore. <a href="https://doi.org/10.1007/978-981-32-9487-5_70" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1007/978-981-32-9487-5_70</a>, ISBN: 978-981-32-9487-5
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">4.</span> Nath, T., Karthick, S., Chouhan, P., Lad, B.K., Palani, I.A. (2016). Investigation On Actuation and Thermo-Mechanical Behavior of Shape Memory Alloy Spring by Comparing On/Off and PID Controller for Precise Position Control. In: Vinod, B., Voyles, R., Vadakkepat, P., Sundaram, M., Sujatha, K., Brislin, J. (eds) <em>Advancements in Automation, Robotics and Sensing. ICAARS 2016. Communications in Computer and Information Science</em>, vol 627. Springer, Singapore. <a href="https://doi.org/10.1007/978-981-10-2845-8_8" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1007/978-981-10-2845-8_8</a>, ISBN: 978-981-10-2845-8
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">5.</span> Nath Tiwari, T., Lad, B.K., Chouhan, P., Palani, I.A. (2015) Investigation on Actuation and Reliability of Shape Memory Alloy Microcoil Spring. In: Davim JP. (eds) <em>Modern Manufacturing Engineering. Materials Forming, Machining and Tribology</em>. Springer, Cham. <a href="https://doi.org/10.1007/978-3-319-20152-8_2" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1007/978-3-319-20152-8_2</a>, ISBN: 978-3-319-20152-8
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Conference Papers -->
+                <div id="conferences-tab" class="publication-content hidden">
+                    <div class="space-y-4">
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">1.</span> Akhil Verma, Anand K, Hari Visanth, Tameshwer Nath, I.A. Palani (2018). Investigation on hot fluid based actuation of SMA spring and their application for the development for Heat Engine. <em>AIP Conference proceeding</em>, In: Dipen Kumar Rajak, P.L.Verma, V.B.Tungikar and Y.J. Bhalerao (eds) Proceedings of 1st International conference on Mechanical and material science engineering: Innovation and Research (ICMMSEIR:2018), held during 5-6th July 2018 at Sandip foundation, Nasik, India. <a href="https://doi.org/10.1063/1.5058259" target="_blank" class="text-blue-600 hover:underline">https://doi.org/10.1063/1.5058259</a>, Vol: 2018 (1), ISSN: 1551-7616
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">2.</span> Yogeshwaran S.M., Tameshwer Nath, Reena Disawal, I.A. Palani (2017). Design and fabrication of shape memory alloy actuated Stewart platform for automated laser assist micro machining application. <em>Proceedings of 10th International conference on precision, Meso, Micro and Nano Engineering (COPEN-10)</em>, held during 07-09 December 2017 at Indian Institute of Technology Madras, India, ISBN No: 978-93-80689-28-9, PP No: 962-965
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow conference-publication">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">3.</span> Tameshwer Nath, S.S. Mani Prabu, I.A. Palani (2017). Precise position control studies of Laser actuated Ni-Ti Shape Memory Alloy helical spring using PID controller. <em>Proceedings of 10th International conference on precision, Meso, Micro and Nano Engineering (COPEN-10)</em>, held during 07-09 December 2017 at Indian Institute of Technology Madras, India, ISBN No: 978-93-80689-28-9, PP No: 966-969
+                            </p>
+                        </div>
+                        <div class="publication-card p-4 rounded bg-white shadow conference-publication">
+                            <p class="text-gray-800">
+                                <span class="font-semibold">4.</span> Tameshwer Nath, S.S. Mani Prabu, I.A. Palani (2016). Numerical investigations of shape memory alloy coiled spring for hot water actuation using CFD. <em>Process Technology of Engineering and Science (PTES 2016-A National Conference on Recent advances in Engineering science and Technology</em>, held during 10-11 October 2016 at National Institute of Technical Teachers Training and Research, Chandigarh, India
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button id="view-more-conferences" class="text-blue-600 hover:text-blue-800 font-medium">View More Conference Papers</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Subsection -->
+            <div id="projects" class="mt-12">
+                <h2 class="text-3xl font-bold section-title">Projects</h2>
+                
+                <h3 class="text-2xl font-semibold mb-4">Completed Project: As Principal Investigator</h3>
+                <div class="card p-6 mb-8">
+                    <div class="project-card p-4">
+                        <h4 class="text-xl font-semibold text-blue-700">Investigation on the thermo-mechanical behavior of Ni-Ti shape memory alloy under different control strategies for MEMS devices</h4>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <div>
+                                <p class="font-medium">Funding Agency:</p>
+                                <p>Council of Scientific and Industrial Research (CSIR)</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Project Cost:</p>
+                                <p>Rs. 5,14,333.00</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Duration:</p>
+                                <p>01 Year (May 2018 - Mar 2019)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-semibold mb-4">Ongoing Project: As Co-Principal Investigator</h3>
+                <div class="card p-6 mb-8">
+                    <div class="project-card p-4">
+                        <h4 class="text-xl font-semibold text-blue-700">Design and Development of fire resistance Hollow Tubes for gun barrel applications using wire arc additive manufacturing</h4>
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-4 gap-2">
+                            <div>
+                                <p class="font-medium">Funding Agency:</p>
+                                <p>Defence Research and Development Organization (DRDO)</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Project Cost:</p>
+                                <p>Rs. 46,63,000</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Principal Investigator:</p>
+                                <p>Dr. Shiva S. (Indian Institute of Technology Jammu)</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Duration:</p>
+                                <p>02 Years (April 2021 - September 2023)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-semibold mb-4">PhD Thesis Supervision</h3>
+                <div class="card p-6 mb-8">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Thesis Title</th>
+                                <th>Status</th>
+                                <th>Co-Guide</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mr. Lawakush Mishra (2103014)</td>
+                                <td>Investigations on the development of Shape memory alloy based micro robots for practical Application</td>
+                                <td>On-Going</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td>Mr. Shankar Kumar (2103015)</td>
+                                <td>Design and Analysis of the power train system using Artificial Intelligence for Electric vehicle</td>
+                                <td>On-Going</td>
+                                <td>No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 class="text-2xl font-semibold mb-4">M.Tech Project Guidance</h3>
+                <div class="card p-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Thesis Title</th>
+                                <th>Status</th>
+                                <th>Co-Guide</th>
+                                <th>Affiliation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Md. Yusuf (2102014)</td>
+                                <td>Modelling and simulation of SMA coiled spring for MEMS Applications</td>
+                                <td>Completed (2021-25)</td>
+                                <td>No</td>
+                                <td rowspan="2">IIIT Bhagalpur</td>
+                            </tr>
+                            <tr>
+                                <td>Praveen Kumar Pandey (2102017)</td>
+                                <td>Charging Behavior of Li-ion Battery used in Electric Vehicle</td>
+                                <td>Completed (2021-23)</td>
+                                <td>Dr. Abhinav Gautam</td>
+                            </tr>
+                            <tr>
+                                <td>Abhishek Shukla (1001240001)</td>
+                                <td>Optimization of Surface Roughness of A 713 Aluminium Alloy in Turning operation using Taguchi Method</td>
+                                <td>Completed (2012-2013)</td>
+                                <td>No</td>
+                                <td rowspan="2">Subharti University Meerut</td>
+                            </tr>
+                            <tr>
+                                <td>Mayank Tripathi (1001240006)</td>
+                                <td>Optimization of Surface Roughness of A 535 Aluminium Alloy in Turning operation using Taguchi Method</td>
+                                <td>Completed (2012-2013)</td>
+                                <td>No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Researchers Subsection -->
+            <div id="researchers" class="mt-12">
+                <h2 class="text-3xl font-bold section-title">My Researchers</h2>
+                
+                <h3 class="text-2xl font-semibold mb-4">PhD Researchers</h3>
+                <div class="card p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col md:flex-row items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/lawakush.jpg" alt="Lawakush Mishra" class="student-photo mb-4 md:mb-0 md:mr-4" id="researcher-lawakush">
+                            <div>
+                                <h4 class="text-xl font-semibold text-blue-700">Mr. Lawakush Mishra</h4>
+                                <p class="text-gray-700 mb-2">Roll No: 2103014</p>
+                                <p class="font-medium">Research Topic:</p>
+                                <p class="text-gray-800">Investigations on the development of Shape memory alloy based micro robots for practical Application</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> On-Going</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/shankar.jpg" alt="Shankar Kumar" class="student-photo mb-4 md:mb-0 md:mr-4" id="researcher-shankar">
+                            <div>
+                                <h4 class="text-xl font-semibold text-blue-700">Mr. Shankar Kumar</h4>
+                                <p class="text-gray-700 mb-2">Roll No: 2103015</p>
+                                <p class="font-medium">Research Topic:</p>
+                                <p class="text-gray-800">Design and Analysis of the power train system using Artificial Intelligence for Electric vehicle</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> On-Going</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-semibold mb-4">M.Tech Researchers</h3>
+                <div class="card p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col md:flex-row items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/Yusuf.jpg" alt="Md. Yusuf" class="student-photo mb-4 md:mb-0 md:mr-4" id="researcher-yusuf">
+                            <div>
+                                <h4 class="text-xl font-semibold text-blue-700">Md. Yusuf</h4>
+                                <p class="text-gray-700 mb-2">Roll No: 2102014</p>
+                                <p class="font-medium">Research Topic:</p>
+                                <p class="text-gray-800">Modelling and simulation of SMA coiled spring for MEMS Applications</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> Completed (2021-23)</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/praveen.jpg" alt="Praveen Kumar Pandey" class="student-photo mb-4 md:mb-0 md:mr-4" id="researcher-praveen">
+                            <div>
+                                <h4 class="text-xl font-semibold text-blue-700">Praveen Kumar Pandey</h4>
+                                <p class="text-gray-700 mb-2">Roll No: 2102017</p>
+                                <p class="font-medium">Research Topic:</p>
+                                <p class="text-gray-800">Charging Behavior of Li-ion Battery used in Electric Vehicle</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> Completed (2021-23)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-semibold mb-4">B.Tech Researchers</h3>
+                <div class="card p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="flex flex-col items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/prince.jpg" alt="Prince Kumar" class="student-photo mb-4" id="researcher-prince">
+                            <div class="text-center">
+                                <h4 class="text-xl font-semibold text-blue-700">Prince Kumar</h4>
+                                <p class="text-gray-700 mb-2">Mechatronics and Automation Engineering</p>
+                                <p class="font-medium">Research Project:</p>
+                                <p class="text-gray-800">Space Debris Removal Project</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> Ongoing</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/harsh.jpg" alt="Harsh Kumar" class="student-photo mb-4" id="researcher-harsh">
+                            <div class="text-center">
+                                <h4 class="text-xl font-semibold text-blue-700">Harsh Kumar</h4>
+                                <p class="text-gray-700 mb-2">Mechatronics and Automation Engineering</p>
+                                <p class="font-medium">Research Project:</p>
+                                <p class="text-gray-800">Space Debris Removal Project</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> Ongoing</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-blue-50 rounded-lg">
+                            <img src="images/amit.jpg" alt="Amit Kumar Bind" class="student-photo mb-4" id="researcher-amit">
+                            <div class="text-center">
+                                <h4 class="text-xl font-semibold text-blue-700">Amit Kumar Bind</h4>
+                                <p class="text-gray-700 mb-2">Computer Science Engineering</p>
+                                <p class="font-medium">Research Project:</p>
+                                <p class="text-gray-800">Space Debris Removal Project</p>
+                                <p class="text-gray-700 mt-2"><span class="font-medium">Status:</span> Ongoing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-xl font-semibold text-blue-700 mb-4">Other B.Tech Researchers</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <h5 class="font-semibold">Saket Kumar & Nishi Singh</h5>
+                                <p>Project: Case Study of Shape memory alloy in Biomedical applications</p>
+                                <p class="text-gray-700">Status: Completed (2023-2024)</p>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <h5 class="font-semibold">Rajat Sharma & Ankit Kumar</h5>
+                                <p>Project: Design and Development of Micromouse Robot</p>
+                                <p class="text-gray-700">Status: Completed (2023-2024)</p>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <h5 class="font-semibold">Ayush Sharma</h5>
+                                <p>Project: Investigations on control of Automated Guided Vehicle (AGV) using PLC</p>
+                                <p class="text-gray-700">Status: Completed (2022-23)</p>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <h5 class="font-semibold">Ayush Sinha</h5>
+                                <p>Project: Dynamic Analysis of Various car models with suspension systems</p>
+                                <p class="text-gray-700">Status: Completed (2022-23)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patents Section -->
+    <section id="patents" class="py-8">
+        <div class="section-container">
+            <h2 class="text-3xl font-bold section-title">Patents (IPR)</h2>
+            <div class="card p-6">
+                <div class="space-y-6">
+                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 hover:shadow-lg transition-all">
+                        <h3 class="text-xl font-semibold text-green-700 mb-2">Granted Patent</h3>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Title:</span> Thermo-mechanical test bench for reliability estimation of Shape memory alloy spring
+                        </p>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Inventors:</span> I.A. Palani, B.K. Lad, Tameshwer Nath and Pradeep Kundu
+                        </p>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Application No:</span> 201621007005
+                        </p>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Filed:</span> 2016
+                        </p>
+                        <p class="text-gray-800">
+                            <span class="font-semibold">Granted:</span> 21/11/2023
+                        </p>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition-all">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Filed Patent</h3>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Title:</span> Device for a shape memory alloy operated Directional control valve and a method there of
+                        </p>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Inventors:</span> Suraj, Arun Kumar, Tameshwer Nath
+                        </p>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Application No:</span> 202431000788
+                        </p>
+                        <p class="text-gray-800">
+                            <span class="font-semibold">Filed:</span> 04/01/2024
+                        </p>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition-all">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">In Process Patent</h3>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Title:</span> Method of Fabrication of Gun Barrel with cold metal transfer based arc additive process
+                        </p>
+                        <p class="text-gray-800 mb-2">
+                            <span class="font-semibold">Inventors:</span> Amritbir Singh, S. Shiva, Tameshwer Nath
+                        </p>
+                        <p class="text-gray-800">
+                            <span class="font-semibold">Status:</span> Applied and in process
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-8">
+        <div class="section-container">
+            <h2 class="text-3xl font-bold section-title">Achievements and Awards</h2>
+            <div class="card p-6">
+                <div class="space-y-4">
+                    <div class="achievement-item">
+                        <p class="text-gray-800">Invited speaker (Guest of Honor) in One Day Seminar on "Recent Trends in Artificial Intelligence and Machine Learning & Deep Learning" on 13th January 2024 jointly organized by the Institution of Engineers (I) - Gorakhpur Local Centre & Institute of Technology Management, GIDA, Gorakhpur</p>
+                    </div>
+                    <div class="achievement-item">
+                        <p class="text-gray-800">Performed a confidential task organized by the National Testing Agency (NTA) at New Delhi - 110020 on 12th - 16th September 2023</p>
+                    </div>
+                    <div class="achievement-item">
+                        <p class="text-gray-800">Invited as an Examiner in BCE Bhagalpur for Engineering graphics in B.Tech on 04/06/2022 and 03/12/2022</p>
+                    </div>
+                    <div class="achievement-item">
+                        <p class="text-gray-800">F/I Security and F/I Transport of IIIT Bhagalpur from 19/07/2022 to Till Now</p>
+                    </div>
+                    <div class="achievement-item">
+                        <p class="text-gray-800">Delivered an Expert Talk on Investigations on actuation studies on shape memory alloy-based MEMS devices and its review on 30th April 2022 at Bhagalpur college of Engineering Bhagalpur</p>
+                    </div>
+                    <div id="more-achievements" class="space-y-4 hidden">
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Took Expert Lecture (online) in internship program, organized by CIDC from 25th August 2021 to 13th November 2021</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Participated QIP Short Term Course (online) on "conducted by the Department of Materials Science and Engineering, IIT Kanpur from 15th -20th March 2021</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Organized Short Term course on "Mechatronics, Instrumentations, Intelligent & Bio-Inspired Materials" at IIIT Bhagalpur from 10th -14th February 2021</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Delivered an Expert Talk on Recent Innovation in MEMS field : Mechatronics Approach on 04th February 2021 at Amity School of Engineering and Technology, Noida</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Delivered an Expert Talk on Mechanical System Design and Modelling in BCE Engineering College on 27th January 2021</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Session Chaired in 11th International Conference on Materials Processing and Characterization -2020 (ICMPC 2020) organized by Department of Mechanical Engineering, Indian Institute of Technology Indore during 15th - 17th Dec. 2020</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Organized a webinar on "Compact Modeling, Parameter Extraction and Verilog-A Implementation of RF MOS Devices: for 5G Applications" at IIIT Bhagalpur on 27th October 2020</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Training and Placement officer of SITE, Subharti University from 16th February 2019 to July 2019</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">SPIE Membership from 2018 to Till Now (SPIE-3623207)</p>
+                        </div>
+                        <div class="achievement-item">
+                            <p class="text-gray-800">Reviewer of: Material Research Express (IOP Science), Microsystems Technologies (Springer), Current Mechanics and Advanced Materials and Journal of Intelligent Material systems and Manufacturing</p>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button id="view-more-achievements" class="text-blue-600 hover:text-blue-800 font-medium">View More Achievements</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-8">
+        <div class="section-container">
+            <h2 class="text-3xl font-bold section-title">Contact Me</h2>
+            <div class="card p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-4">Contact Information</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-user text-blue-600 mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <p class="font-medium">Dr. Tameshwer Nath</p>
+                                    <p>Assistant Professor</p>
+                                    <p>Department of Mechatronics and Automation Engineering</p>
+                                    <p>Indian Institute of Information Technology Bhagalpur</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-blue-600 mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <p>Sabour, Bhagalpur-813210</p>
+                                    <p>Bihar, India</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-envelope text-blue-600 mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <p>tameshwer.nath@gmail.com</p>
+                                    <p>tnath.mea@iiitbh.ac.in</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-phone text-blue-600 mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <p>+91-8959591837 (WhatsApp)</p>
+                                    <p>+91-9528993366</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-globe text-blue-600 mt-1 mr-3 text-xl"></i>
+                                <p><a href="http://www.tntiwari.webs.com" target="_blank" class="text-blue-600 hover:underline">www.tntiwari.webs.com</a></p>
+                            </li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold text-blue-700 mt-8 mb-4">Connect With Me</h3>
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <p class="mb-6">Feel free to reach out to me for research collaborations, academic inquiries, or any questions about my work in Smart Materials, Mechatronics, or Additive Manufacturing.</p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="https://www.linkedin.com/in/dr-tameshwer-nath-b8b65722b/" class="social-icon text-3xl text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-icon text-3xl text-blue-600 hover:text-blue-800"><i class="fab fa-researchgate"></i></a>
+                                <a href="https://orcid.org/0000-0002-1471-9900" target="_blank" class="social-icon text-3xl text-blue-600 hover:text-blue-800"><i class="fab fa-orcid"></i></a>
+                                <a href="mailto:tameshwer.nath@gmail.com" class="social-icon text-3xl text-blue-600 hover:text-blue-800"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-4">Lab Location</h3>
+                        <div class="bg-gray-200 w-full h-96 rounded-lg overflow-hidden">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.3441022022193!2d87.03754237509283!3d25.259007529194935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f0481fd7d50f6d%3A0xbe75d3ff73e0373e!2sIndian%20Institute%20of%20Information%20Technology%20Bhagalpur!5e0!3m2!1sen!2sin!4v1745340193385!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        </div>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold text-blue-700 mb-4">Institute Address</h3>
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <p class="mb-2 font-medium">Indian Institute of Information Technology Bhagalpur</p>
+                                <p>Department of Mechatronics and Automation Engineering</p>
+                                <p>B.C.E. Campus, Sabour</p>
+                                <p>Bhagalpur, Bihar - 813210</p>
+                                <p>India</p>
+                                <p class="mt-2"><a href="https://iiitbh.ac.in/" target="_blank" class="text-blue-600 hover:underline">https://iiitbh.ac.in/</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="section-container">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Dr. Tameshwer Nath</h3>
+                    <p class="text-gray-300">Assistant Professor</p>
+                    <p class="text-gray-300">Mechatronics and Automation Engineering</p>
+                    <p class="text-gray-300">IIIT Bhagalpur</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-blue-400 transition-colors" data-page="home">Home</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors" data-page="about" data-section="about-me">About</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors" data-page="research" data-section="research-interests">Research</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors" data-page="patents">Patents</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors" data-page="achievements">Achievements</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/dr-tameshwer-nath-b8b65722b/" class="social-icon text-2xl text-gray-300 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon text-2xl text-gray-300 hover:text-blue-400"><i class="fab fa-researchgate"></i></a>
+                        <a href="https://orcid.org/0000-0002-1471-9900" target="_blank" class="social-icon text-2xl text-gray-300 hover:text-blue-400"><i class="fab fa-orcid"></i></a>
+                        <a href="mailto:tameshwer.nath@gmail.com" class="social-icon text-2xl text-gray-300 hover:text-blue-400"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="text-lg font-medium mb-2">CREATE Lab</h4>
+                        <p class="text-gray-400">Center for Research in Emerging Actuation & Testing in Engineering</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2025 Dr. Tameshwer Nath. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vision Modal -->
+    <div id="vision-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-vision">&times;</span>
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Vision & Mission</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-600 mb-2">Vision</h3>
+                    <p>To establish a world-class research center focusing on emerging actuation technologies and shape memory alloys, pushing the boundaries of intelligent materials for next-generation engineering solutions.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-600 mb-2">Mission</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Develop cutting-edge research in smart materials and mechatronics with a focus on practical industrial applications</li>
+                        <li>Cultivate a collaborative research environment bridging academia and industry</li>
+                        <li>Train the next generation of engineers in advanced materials and actuation technologies</li>
+                        <li>Pioneer innovative solutions addressing critical challenges in automation, medical devices, and aerospace systems</li>
+                        <li>Establish international collaborations to enhance research capabilities and global impact</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Tour Modal -->
+    <div id="virtual-tour-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-virtual-tour">&times;</span>
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Virtual Tour</h2>
+            
+            <div class="video-gallery">
+                <div class="gallery-container" id="gallery-container">
+                    <div class="gallery-slide active">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/RyBEN-bLvQg?si=WTjmGQPlBqzgasVt" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="gallery-slide">
+                        <iframe width="100%" height="315" src="videos/Heat_Engine_for_Energy_Harvesting_Application.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="gallery-slide">
+                        <iframe width="100%" height="315" src="images/3by2_Directional_Control_Valve.jpg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="gallery-slide">
+                        <iframe width="100%" height="315" src="images/SMA_Actuation_Vi_ Joule_Heating.jpg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="gallery-slide">
+                        <iframe width="100%" height="315" src="images/Stewart_Platform.jpg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <div class="gallery-controls">
+                    <div class="gallery-control" id="prev-slide">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="gallery-control" id="next-slide">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-navigation mt-4">
+                    <img src="https://img.youtube.com/vi/RyBEN-bLvQg/mqdefault.jpg" alt="IIIT Bhagalpur Campus Tour" class="gallery-thumbnail active" data-index="0">
+                    <img src="images/ThumbnailOfVideo1.jpg" alt="Heat_Engine_for_Energy_Harvesting_Application" class="gallery-thumbnail" data-index="1">
+                    <img src="images/3by2_Directional_Control_Valve.jpg" alt="3by2_Directional_Control_Valve" class="gallery-thumbnail" data-index="2">
+                    <img src="images/SMA_Actuation_Vi_ Joule_Heating.jpg" alt="SMA_Actuation_Vi_ Joule_Heating" class="gallery-thumbnail" data-index="3">
+                    <img src="images/Stewart_Platform.jpg" alt="Stewart_Platform" class="gallery-thumbnail" data-index="4">
+                </div>
+                
+                <p class="text-center mt-4 text-gray-700">
+                    <span id="current-slide-label">IIIT Bhagalpur Campus Tour</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Page Navigation
+            const pages = ['home', 'about', 'research', 'patents', 'achievements', 'contact'];
+            const pageLinks = document.querySelectorAll('[data-page]');
+            
+            function activatePage(pageId) {
+                // Hide all pages
+                pages.forEach(page => {
+                    document.getElementById(page).classList.remove('active');
+                });
+                
+                // Show selected page
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+            
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    const sectionId = this.getAttribute('data-section');
+                    
+                    activatePage(pageId);
+                    
+                    if (sectionId) {
+                        setTimeout(() => {
+                            const section = document.getElementById(sectionId);
+                            const yOffset = -100;
+                            const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                            window.scrollTo({top: y, behavior: 'smooth'});
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Mobile Dropdown Toggle
+            const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
+            
+            mobileDropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.mobile-dropdown-toggle');
+                toggle.addEventListener('click', function() {
+                    dropdown.classList.toggle('mobile-dropdown-active');
+                    this.classList.toggle('fa-chevron-down');
+                    this.classList.toggle('fa-chevron-up');
+                });
+            });
+            
+            // Publication Tabs
+            const publicationTabs = document.querySelectorAll('.publication-tab');
+            const publicationContents = document.querySelectorAll('.publication-content');
+            
+            publicationTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-pub-tab');
+                    
+                    // Reset active state
+                    publicationTabs.forEach(t => {
+                        t.classList.remove('active', 'bg-blue-600', 'text-white');
+                        t.classList.add('bg-gray-200');
+                    });
+                    
+                    publicationContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // Set active tab
+                    this.classList.add('active', 'bg-blue-600', 'text-white');
+                    this.classList.remove('bg-gray-200');
+                    
+                    document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+                });
+            });
+            
+            // View More buttons
+            const viewMoreSci = document.getElementById('view-more-sci');
+            const viewMoreConferences = document.getElementById('view-more-conferences');
+            const viewMoreAchievements = document.getElementById('view-more-achievements');
+            
+            if (viewMoreSci) {
+                viewMoreSci.addEventListener('click', function() {
+                    const sciPublications = document.querySelectorAll('.sci-publication');
+                    sciPublications.forEach(pub => {
+                        pub.classList.toggle('hidden');
+                    });
+                    this.textContent = this.textContent === 'View More Publications' ? 'View Less Publications' : 'View More Publications';
+                });
+            }
+            
+            if (viewMoreConferences) {
+                viewMoreConferences.addEventListener('click', function() {
+                    const conferencePublications = document.querySelectorAll('.conference-publication');
+                    conferencePublications.forEach(pub => {
+                        pub.classList.toggle('hidden');
+                    });
+                    this.textContent = this.textContent === 'View More Conference Papers' ? 'View Less Conference Papers' : 'View More Conference Papers';
+                });
+            }
+            
+            if (viewMoreAchievements) {
+                viewMoreAchievements.addEventListener('click', function() {
+                    document.getElementById('more-achievements').classList.toggle('hidden');
+                    this.textContent = this.textContent === 'View More Achievements' ? 'View Less Achievements' : 'View More Achievements';
+                });
+            }
+            
+            // Vision Modal
+            const visionButton = document.getElementById('vision-button');
+            const visionModal = document.getElementById('vision-modal');
+            const closeVision = document.getElementById('close-vision');
+            
+            visionButton.addEventListener('click', function() {
+                visionModal.style.display = 'block';
+                setTimeout(() => {
+                    visionModal.classList.add('show');
+                }, 10);
+            });
+            
+            closeVision.addEventListener('click', function() {
+                visionModal.classList.remove('show');
+                setTimeout(() => {
+                    visionModal.style.display = 'none';
+                }, 300);
+            });
+            
+            // Virtual Tour Modal
+            const virtualTourButton = document.getElementById('virtual-tour-button');
+            const virtualTourModal = document.getElementById('virtual-tour-modal');
+            const closeVirtualTour = document.getElementById('close-virtual-tour');
+            
+            virtualTourButton.addEventListener('click', function() {
+                virtualTourModal.style.display = 'block';
+                setTimeout(() => {
+                    virtualTourModal.classList.add('show');
+                }, 10);
+            });
+            
+            closeVirtualTour.addEventListener('click', function() {
+                virtualTourModal.classList.remove('show');
+                setTimeout(() => {
+                    virtualTourModal.style.display = 'none';
+                }, 300);
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === visionModal) {
+                    visionModal.classList.remove('show');
+                    setTimeout(() => {
+                        visionModal.style.display = 'none';
+                    }, 300);
+                }
+                if (event.target === virtualTourModal) {
+                    virtualTourModal.classList.remove('show');
+                    setTimeout(() => {
+                        virtualTourModal.style.display = 'none';
+                    }, 300);
+                }
+            });
+            
+            // Gallery Slider Functionality
+            const galleryContainer = document.getElementById('gallery-container');
+            const slides = document.querySelectorAll('.gallery-slide');
+            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+            const prevButton = document.getElementById('prev-slide');
+            const nextButton = document.getElementById('next-slide');
+            const currentSlideLabel = document.getElementById('current-slide-label');
+            
+            let currentSlideIndex = 0;
+            const slideTitles = [
+                'IIIT Bhagalpur Campus Tour',
+                'Heat Engine for Energy Harvesting Application',
+                '3by2 Directional Control Valve',
+                'SMA Actuation via Joule Heating',
+                'Stewart Platform'
+            ];
+            
+            function showSlide(index) {
+                // Calculate real index (for looping)
+                if (index >= slides.length) {
+                    currentSlideIndex = 0;
+                } else if (index < 0) {
+                    currentSlideIndex = slides.length - 1;
+                } else {
+                    currentSlideIndex = index;
+                }
+                
+                // Update container scroll position
+                const slideWidth = slides[0].offsetWidth;
+                galleryContainer.scrollLeft = currentSlideIndex * slideWidth;
+                
+                // Update thumbnails
+                thumbnails.forEach((thumb, i) => {
+                    if (i === currentSlideIndex) {
+                        thumb.classList.add('active');
+                        thumb.style.opacity = 1;
+                    } else {
+                        thumb.classList.remove('active');
+                        thumb.style.opacity = 0.6;
+                    }
+                });
+                
+                // Update slide label
+                currentSlideLabel.textContent = slideTitles[currentSlideIndex];
+            }
+            
+            // Thumbnail click
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-index'));
+                    showSlide(slideIndex);
+                });
+            });
+            
+            // Next/Prev buttons
+            prevButton.addEventListener('click', () => {
+                showSlide(currentSlideIndex - 1);
+            });
+            
+            nextButton.addEventListener('click', () => {
+                showSlide(currentSlideIndex + 1);
+            });
+            
+            // Image path update functions
+            function updateProfileImage(url) {
+                document.getElementById('profile-image').src = url;
+            }
+            
+            function updateResearcherImage(id, url) {
+                document.getElementById(`researcher-${id}`).src = url;
+            }
+            
+            // Example of how to update an image:
+            // updateProfileImage('https://new-url-for-profile-image.jpg');
+            // updateResearcherImage('lawakush', 'https://new-url-for-lawakush.jpg');
+            
+            // Initialize the home page by default
+            activatePage('home');
+        });
+    </script>
+</body>
+</html>

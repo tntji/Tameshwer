@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Tameshwer Nath - Mechatronics Engineering Department, IIIT Bhagalpur</title>
+    <!-- Google Fonts for Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #003366; /* Deep blue for trust and professionalism */
+            --accent-color: #FFA500;  /* Orange for highlights and interactivity */
+            --light-background: #F0F8FF; /* Light blue for subtle backgrounds */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-bottom: 1px solid #e1e1e1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .department-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .institution-name {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 15px;
+            display: block;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #002244; /* Darker blue on hover */
+            transform: scale(1.05);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            padding: 30px 0;
+        }
+
+        .left-column {
+            flex: 7;
+            padding-right: 30px;
+        }
+
+        .left-column > section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .right-column {
+            flex: 3;
+            background-color: var(--light-background);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .profile-section {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .profile-designation {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .info-label {
+            font-weight: 700;
+            margin-right: 10px;
+            display: inline-block;
+            width: 120px;
+            vertical-align: top;
+        }
+
+        .info-value {
+            display: inline-block;
+            max-width: calc(100% - 130px);
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .research-list {
+            list-style-position: inside;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .research-item {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .sidebar-link:hover {
+            color: #FF8C00; /* Darker orange on hover */
+            text-decoration: underline;
+        }
+
+        .sidebar-link i {
+            margin-right: 10px;
+        }
+
+        .publication-item, .project-item {
+            background-color: var(--light-background);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .project-title {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--light-background);
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .footer-text {
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* Links */
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #FF8C00;
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .left-column {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-image {
+                margin-bottom: 20px;
+            }
+
+            .info-label {
+                width: 100%;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .info-value {
+                max-width: 100%;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <img src="/api/placeholder/100/100" alt="IIIT Bhagalpur Logo" class="logo">
+                <div class="institution-info">
+                    <h1 class="department-name">Mechatronics Engineering Department</h1>
+                    <h2 class="institution-name">Indian Institute of Information Technology, Bhagalpur</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#people" class="nav-link">People</a></li>
+                <li class="nav-item"><a href="#research" class="nav-link">Research</a></li>
+                <li class="nav-item"><a href="#publications" class="nav-link">Publications</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+        <div class="left-column">
+            <!-- Profile Section -->
+            <section class="profile-section">
+                <img src="/api/placeholder/150/200" alt="Dr. Tameshwer Nath" class="profile-image">
+                <div class="profile-details">
+                    <h2 class="profile-name">Dr. Tameshwer Nath</h2>
+                    <p class="profile-designation">Assistant Professor, Mechatronics Engineering</p>
+                    <div class="info-item">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">tameshwer.nath@gmail.com, tnath.mea@iiitbh.ac.in</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">+91-8959591837 (WhatsApp) / +91-9528993366</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Office:</span>
+                        <span class="info-value">Mechatronics Engineering Department, IIIT Bhagalpur</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Website:</span>
+                        <span class="info-value"><a href="http://www.tntiwari.webs.com" target="_blank">www.tntiwari.webs.com</a></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">ORCID ID:</span>
+                        <span class="info-value">0000-0002-1471-9900</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Research Interests Section -->
+            <section id="research">
+                <h3 class="section-title">Research Interests</h3>
+                <ol class="research-list">
+                    <li class="research-item">Design and control of Mechanical Systems</li>
+                    <li class="research-item">Smart Materials (Shape Memory Alloy, especially NiTi)</li>
+                    <li class="research-item">Mechatronics</li>
+                    <li class="research-item">Additive Manufacturing</li>
+                </ol>
+            </section>
+
+            <!-- Biography Section -->
+            <section id="about">
+                <h3 class="section-title">Biography</h3>
+                <p>Dr. Tameshwer Nath is an Assistant Professor in the Mechatronics Engineering Department at Indian Institute of Information Technology, Bhagalpur. He completed his Ph.D. from Indian Institute of Technology, Indore in February 2019, focusing on "Investigations on Contact and Non-Contact Based Actuation Studies of Shape Memory Alloy (SMA) Structures and their Life Cycle Behavior" under the supervision of Dr. I.A. Palani.</p>
+                <p>Prior to joining IIIT Bhagalpur, he worked as an Assistant Professor at Subharti University, Meerut, and as a Research Associate at CSIR, IIT Indore. He also served as a Teaching Associate at IIT Indore from January 2014 to April 2018.</p>
+                <p>Dr. Nath earned his M.Tech in Manufacturing Systems Engineering from SLIET, Sangrur in 2012 and his B.Tech in Mechanical Engineering from Institute of Technology and Management, Gorakhpur in 2008.</p>
+                <p>His research focuses on Smart Materials, particularly Shape Memory Alloys, Mechatronics, and Additive Manufacturing. He has published numerous research papers in reputed journals and presented his work at various national and international conferences.</p>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects">
+                <h3 class="section-title">Projects</h3>
+                <div class="project-item">
+                    <h4 class="project-title">Completed Projects (As PI):</h4>
+                    <p><strong>Title:</strong> Investigation on the Thermo-Mechanical Behavior of Ni-Ti Shape Memory Alloy under Different Control Strategies for MEMS Devices</p>
+                    <p><strong>Funding Agency:</strong> CSIR</p>
+                    <p><strong>Project Cost:</strong> Rs. 5,14,333.00</p>
+                    <p><strong>Duration:</strong> 1 Year (May 2018 - Mar 2019)</p>
+                </div>
+                <div class="project-item">
+                    <h4 class="project-title">Ongoing Project (As Co-PI):</h4>
+                    <p><strong>Title:</strong> Design and Development of Fire Resistance Hollow Tubes for Gun Barrel Applications Using Wire Arc Additive Manufacturing</p>
+                    <p><strong>Funding Agency:</strong> DRDO</p>
+                    <p><strong>Project Cost:</strong> Rs. 46,63,000</p>
+                    <p><strong>Duration:</strong> 2 Years (Apr 2021 - Sept 2023)</p>
+                </div>
+                <div class="project-item">
+                    <h4 class="project-title">Research Students:</h4>
+                    <ul class="research-list">
+                        <li>Prince Kumar - Mechatronics and Automation Engineering (Space Debris Removal Project)</li>
+                        <li>Harsh Kumar - Mechatronics and Automation Engineering (Space Debris Removal Project)</li>
+                        <li>Amit Kumar Bind - Computer Science Engineering (Space Debris Removal Project)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Publications Section -->
+            <section id="publications">
+                <h3 class="section-title">Publications</h3>
+                <div class="publication-item">
+                    <h4>Publication Summary:</h4>
+                    <ul class="research-list">
+                        <li>SCI Indexed Journals: 12</li>
+                        <li>Scopus Indexed Journals: 3</li>
+                        <li>Book Chapters: 5</li>
+                        <li>International Conferences: 7</li>
+                        <li>National Conferences: 2</li>
+                    </ul>
+                    <p><em>(Full list available upon request)</em></p>
+                </div>
+            </section>
+
+            <!-- Patents Section -->
+            <section>
+                <h3 class="section-title">Patents (IPR)</h3>
+                <div class="publication-item">
+                    <ul class="research-list">
+                        <li><strong>Granted:</strong> Thermo-Mechanical Test Bench for Reliability Estimation of Shape Memory Alloy Spring</li>
+                        <li><strong>Filed:</strong> Device for a Shape Memory Alloy Operated Directional Control Valve</li>
+                        <li><strong>In Process:</strong> Fabrication of Gun Barrel Using Cold Metal Transfer-Based Arc Additive Process</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section>
+                <h3 class="section-title">Educational Qualification</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Qualification</th>
+                            <th>Institution</th>
+                            <th>Year of Passing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ph.D. (Mechanical Engineering)</td>
+                            <td>Indian Institute of Technology, Indore</td>
+                            <td>February 2019</td>
+                        </tr>
+                        <tr>
+                            <td>Master of Technology (Manufacturing Systems Engineering)</td>
+                            <td>SLIET, Sangrur</td>
+                            <td>July 2012</td>
+                        </tr>
+                        <tr>
+                            <td>Bachelor of Technology (Mechanical Engineering)</td>
+                            <td>Institute of Technology and Management, Gorakhpur</td>
+                            <td>July 2008</td>
+                        </tr>
+                        <tr>
+                            <td>Diploma in Mechanical Engineering (Computer-Aided Design)</td>
+                            <td>Maharana Pratap Polytechnic, Gorakhpur</td>
+                            <td>August 2005</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Work Experience Section -->
+            <section>
+                <h3 class="section-title">Work Experience</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Department & Institute</th>
+                            <th>Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Assistant Professor (AGP: 7000, Level 11)</td>
+                            <td>IIIT Bhagalpur</td>
+                            <td>19th June 2023 - Present</td>
+                        </tr>
+                        <tr>
+                            <td>Assistant Professor (AGP: 6000, Level 10)</td>
+                            <td>IIIT Bhagalpur</td>
+                            <td>18th Sept 2020 - 18th June 2023</td>
+                        </tr>
+                        <tr>
+                            <td>Assistant Professor</td>
+                            <td>Subharti University, Meerut</td>
+                            <td>1st Jan 2019 - 1st July 2019</td>
+                        </tr>
+                        <tr>
+                            <td>Research Associate</td>
+                            <td>CSIR, IIT Indore</td>
+                            <td>1st May 2018 - 10th Oct 2018</td>
+                        </tr>
+                        <tr>
+                            <td>Teaching Associate</td>
+                            <td>IIT Indore</td>
+                            <td>1st Jan 2014 - 30th April 2018</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact">
+                <h3 class="section-title">Contact Information</h3>
+                <div class="info-item">
+                    <span class="info-label">Address:</span>
+                    <span class="info-value">Mechatronics Engineering Department, Indian Institute of Information Technology, Bhagalpur, BCE Campus, Sabour, Bhagalpur-813210, Bihar</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">tameshwer.nath@gmail.com, tnath.mea@iiitbh.ac.in</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Phone:</span>
+                    <span class="info-value">+91-8959591837 (WhatsApp) / +91-9528993366</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Website:</span>
+                    <span class="info-value"><a href="http://www.tntiwari.webs.com" target="_blank">www.tntiwari.webs.com</a></span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="right-column">
+            <h3 class="sidebar-title">Quick Links</h3>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item"><a href="#about" class="sidebar-link"><i class="fas fa-user"></i> About</a></li>
+                <li class="sidebar-item"><a href="#research" class="sidebar-link"><i class="fas fa-flask"></i> Research Interests</a></li>
+                <li class="sidebar-item"><a href="#publications" class="sidebar-link"><i class="fas fa-book"></i> Publications</a></li>
+                <li class="sidebar-item"><a href="#projects" class="sidebar-link"><i class="fas fa-briefcase"></i> Projects</a></li>
+                <li class="sidebar-item"><a href="#contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+
+            <h3 class="sidebar-title">Technical Skills</h3>
+            <div class="sidebar-content">
+                <p><strong>Equipment:</strong> SEM, TGA, XRD, EDAX</p>
+                <p><strong>Software:</strong> Symbol'shakti (Bond Graph), Ansys, Comsol, MATLAB (Simulink), AutoCAD, Origin-Pro</p>
+            </div>
+
+            <h3 class="sidebar-title">Administrative Roles</h3>
+            <div class="sidebar-content">
+                <p>F/I Security, IIIT Bhagalpur (19 July 2022 - Present)</p>
+                <p>F/I Transport, IIIT Bhagalpur (19 July 2022 - Present)</p>
+                <p>Warden (Kautilya Hostel), IIIT Bhagalpur (Jan 2023 - Present)</p>
+            </div>
+
+            <h3 class="sidebar-title">Memberships</h3>
+            <div class="sidebar-content">
+                <p>ISSS (Institute of Smart Structures & Systems) - Lifetime Member (LM-832)</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">Mechatronics Engineering Department, IIIT Bhagalpur - © 2025</p>
+        </div>
+    </footer>
+</body>
+</html>
